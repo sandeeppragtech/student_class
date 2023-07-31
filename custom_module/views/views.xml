@@ -1,0 +1,81 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="custom_module.list">
+      <field name="name">sports_academy</field>
+      <field name="model">sports.academy</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" decoration-bf="1"/>
+          <field name="value" decoration-danger="1"/>
+          <field name="validity_date" class="oe_highlight"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="sports_academy_form">
+      <field name="name">sports.academy</field>
+      <field name="model">sports.academy</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <field name="state" widget="priority"/>
+          </header>
+          <sheet>
+            <group>
+              <field name="name" widget="text"/>
+            <field name="value"/>
+            <field name="user_id" widget="many2one_avatar_user"/>
+            <field name="company_id" widget="many2one_avatar_user"/>
+            <field name="validity_date" widget="remaining_days"/>
+            <field name="company_email"/>
+            <field name="description" widget="text_emojis"/>
+            <field name="is_number" widget="boolean_favorite"/>
+            <field name="partner_ids" widget="many2many_tags_avatar"/>
+            </group>
+        </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="custom_module.action_window">
+      <field name="name">custom_module window</field>
+      <field name="res_model">sports.academy</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="custom_module.action_server">
+      <field name="name">custom_module server</field>
+      <field name="model_id" ref="model_custom_module_custom_module"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="Sports Academy" id="custom_module.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Academy" id="custom_module.menu_1" parent="custom_module.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="Academy" id="custom_module.menu_1_list" parent="custom_module.menu_1"
+              action="custom_module.action_window"/>
+
+  </data>
+</odoo>
